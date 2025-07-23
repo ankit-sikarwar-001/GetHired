@@ -59,3 +59,44 @@ GetHired is a modern and responsive MERN-based job portal web application built 
 
 ## 🗂️ Project Structure
 
+gethired/
+├── client/ # Frontend React App
+│ ├── components/
+│ ├── pages/
+│ ├── services/ # Axios API calls
+│ └── ...
+├── server/ # Backend Express App
+│ ├── controllers/
+│ ├── models/
+│ ├── routes/
+│ └── middlewares/
+├── .env
+├── README.md
+└── ...
+
+## 🚀 Future Improvements
+- Admin dashboard for platform monitoring
+
+- Chat system between recruiters and applicants
+
+- Resume builder
+
+- Email notifications using Nodemailer
+
+- Advanced search filters & pagination
+
+## 🙌 Acknowledgements
+- Cloudinary
+
+- ShadCN UI
+
+- MongoDB Atlas
+
+- Vite
+
+- JWT Authentication
+
+## 👨‍💻 Author
+### Ankit Singh
+Currently working at Techitute as a Full-Stack Developer & Instructor
+🔗 [Portfolio](https://ankitxwarportfolio.netlify.app/) | 📧 [ankitsikarwar681@gmail.com](ankitsikarwar681@gmail.com) | 🌐 [LinkedIn](https://www.linkedin.com/in/ankit-singh-7135a3259/)
