@@ -6,13 +6,14 @@ import { Button } from '../ui/button'
 import { Loader2 } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { setLoading, setUser } from '@/redux/authSlice'
+import { setUser } from '@/redux/authSlice'
 import { toast } from 'sonner'
 import Store from "@/redux/Store"
 import { USER_API_END_POINT } from '../../utils/constant'
+import { Input } from '../ui/input'
 
 const UpdateProfileDialogue = ({ open, setOpen }) => {
-    const [loading] = useState(false);
+    const [loading,setLoading] = useState(false);
     const { User } = useSelector(Store=> Store.auth);
     const [input, setInput] = useState({
         fullname: User?.fullName,
@@ -46,7 +47,7 @@ const UpdateProfileDialogue = ({ open, setOpen }) => {
             formData.append("file",input.file);
         }
         try{
-            dispatch(setLoading(true));
+            setLoading(true);
             const res = await axios.post(`${USER_API_END_POINT}/profile/update`,formData,{
                 headers:{
                     'Content-Type':'multipart/form-data'
@@ -61,7 +62,7 @@ const UpdateProfileDialogue = ({ open, setOpen }) => {
             console.log(error);
             toast.error(error.response.data.message)
         }finally{
-            dispatch(setLoading(false));
+            setLoading(false);
         }
         setOpen(false); 
         console.log(input);
@@ -79,18 +80,18 @@ const UpdateProfileDialogue = ({ open, setOpen }) => {
                             <div className='grid gap-4 py-4'>
                                 <div className="grid grid-cols-4 items-center gap-4">
                                     <Label htmlFor="name" className="flex justify-end">Name</Label>
-                                    <input
+                                    <Input
                                         id='name'
                                         value={input.fullname}
                                         type='text'
                                         onChange={changeEventHandler}
-                                        name='name'
+                                        name='fullname'
                                         className='col-span-3'
                                     />
                                 </div>
                                 <div className="grid grid-cols-4 items-center gap-4">
                                     <Label htmlFor="email" className="flex justify-end">Email</Label>
-                                    <input
+                                    <Input
                                         id='email'
                                         name='email'
                                         type='email'
@@ -101,9 +102,9 @@ const UpdateProfileDialogue = ({ open, setOpen }) => {
                                 </div>
                                 <div className="grid grid-cols-4 items-center gap-4">
                                     <Label htmlFor="number" className="flex justify-end">Number</Label>
-                                    <input
+                                    <Input
                                         id='number'
-                                        name='number'
+                                        name='phoneNumber'
                                         type='number'
                                         onChange={changeEventHandler}
                                         value={input.phoneNumber}
@@ -112,7 +113,7 @@ const UpdateProfileDialogue = ({ open, setOpen }) => {
                                 </div>
                                 <div className="grid grid-cols-4 items-center gap-4">
                                     <Label htmlFor="bio" className="flex justify-end">Bio</Label>
-                                    <input
+                                    <Input
                                         id='bio'
                                         name='bio'
                                         onChange={changeEventHandler}
@@ -122,7 +123,7 @@ const UpdateProfileDialogue = ({ open, setOpen }) => {
                                 </div>
                                 <div className="grid grid-cols-4 items-center gap-4">
                                     <Label htmlFor="skills" className="flex justify-end">Skills</Label>
-                                    <input
+                                    <Input
                                         id='skills'
                                         name='skills'
                                         onChange={changeEventHandler}
@@ -132,7 +133,7 @@ const UpdateProfileDialogue = ({ open, setOpen }) => {
                                 </div>
                                 <div className="grid grid-cols-4 items-center gap-4">
                                     <Label htmlFor="file" className="flex justify-end">Resume</Label>
-                                    <input
+                                    <Input
                                         id='file'
                                         name='file'
                                         type='file'
@@ -145,9 +146,9 @@ const UpdateProfileDialogue = ({ open, setOpen }) => {
                             </div>
                             <DialogFooter>
                                 {
-                                    loading ? <Button className="w-full my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin' /></Button> : <Button type="submit" className='w-full p-5 font-bold cursor-pointer bg-black text-white hover:bg-gray-900'>
+                                    loading ?(<Button className="w-full my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin' /></Button>):(<Button type="submit" className='w-full p-5 font-bold cursor-pointer bg-black text-white hover:bg-gray-900'>
                                         Update
-                                    </Button>
+                                    </Button>) 
                                 }
                             </DialogFooter>
                         </form>

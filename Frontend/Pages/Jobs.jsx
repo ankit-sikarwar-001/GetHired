@@ -1,10 +1,13 @@
 import FilterCard from '@/components/JobsComponents/FilterCard'
 import Job from '@/components/JobsComponents/Job'
 import Navbar from '@/components/shared/Navbar'
+import Store from '@/redux/Store'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-const randomJobs = [1, 2, 3,4,5,6,7,8]
+// const randomJobs = [1, 2, 3,4,5,6,7,8]
 const Jobs = () => {
+    const { allJobs } = useSelector(Store => Store.jobs)
     return (
         <div >
             <Navbar />
@@ -14,13 +17,13 @@ const Jobs = () => {
                         <FilterCard />
                     </div>
                     {
-                        randomJobs.length <= 0 ? <span>Job not found</span> : (
+                        allJobs.length <= 0 ? <span>Job not found</span> : (
                             <div className='flex-1 h-[79vh] overflow-y-auto pb-5'>
                                 <div className='grid grid-cols-1 sm:grid-cols md:grid-cols-2 lg:grid-cols-3 gap-4'>
                                     {
-                                        randomJobs.map(() => (
+                                        allJobs.map((job) => (
                                             <div>
-                                                <Job />
+                                                <Job key={job?._id} job={job}/>
                                             </div>
                                         ))
                                     }

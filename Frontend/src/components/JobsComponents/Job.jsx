@@ -5,9 +5,9 @@ import { Avatar,AvatarImage } from '../ui/avatar'
 import { Badge } from '../ui/badge'
 import { useNavigate } from 'react-router-dom'
 
-const Job = () => {
+const Job = ({job}) => {
   const navigate = useNavigate();
-  const jobId = "dnkjfdfjfn";
+  // const jobId = "dnkjfdfjfn";
   return (
     <div className='p-5 rounded-md shadow-lg bg-white border border-gray-200'>
       <div className="flex items-center justify-between">
@@ -21,23 +21,23 @@ const Job = () => {
         </Avatar>
       </Button>
       <div>
-        <h1 className='font-medium text-lg'>Company Name</h1>
+        <h1 className='font-medium text-lg'>{job?.company?.name}</h1>
         <p className='text-sm text-gray-500'>India</p>
       </div>
       </div>
       <div>
-        <h1 className='font-bold my-2 text-lg'>Title</h1>
-        <p className='text-sm text-gray-700'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, necessitatibus? Tenetur vero ducimus magnam in doloribus, distinctio reiciendis quas voluptatem facere minus ullam illo. Beatae!</p>
+        <h1 className='font-bold my-2 text-lg'>{job?.title}</h1>
+        <p className='text-sm text-gray-700'>{job?.description}</p>
       </div>
       <div className="flex flex-wrap items-center gap-2 mt-4">
         <Badge className="text-[#6A38C2] font-bold" variant="ghost">
-          Position
+          {job?.position}
         </Badge>
         <Badge className="text-[#F83002] font-bold" variant="ghost">
-          Part Time
+          {job?.jobType}
         </Badge>
         <Badge className="text-[#7209b7] font-bold" variant="ghost">
-          12 LPA
+          {job?.salary}
         </Badge>
       </div>
       <div className='flex items-center gap-4 mt-5'>

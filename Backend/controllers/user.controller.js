@@ -13,6 +13,11 @@ export const register = async (req, res) => {
         .status(400)
         .json({ message: "All fields are required", success: false });
     }
+
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
     const user = await User.findOne({ email });
     if (user) {
       return res
@@ -26,6 +31,9 @@ export const register = async (req, res) => {
       phoneNumber,
       password: hashedPassword,
       role,
+      profile:{
+        profilePhoto:cloudResponse.secure_url,
+      }
     });
     return res
       .status(201)
@@ -114,8 +122,8 @@ export const updateProfile = async (req, res) => {
   // res.send("update profile");
     try {
         const { fullName, email, phoneNumber, bio, skills} = req.body;
-        const file = req.file;
         // cloudinary aayega idhar 
+        const file = req.file;
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
@@ -138,6 +146,7 @@ export const updateProfile = async (req, res) => {
         if (skillsArray) user.profile.skills = skillsArray;
         // resume come later here 
         if(cloudResponse){
+          console.log("Cloudinary secure_url:", cloudResponse.secure_url);
         user.profile.resume = cloudResponse.secure_url;  // save the file
         user.profile.resumeOriginalName = file.originalname; // save the file name 
         }
