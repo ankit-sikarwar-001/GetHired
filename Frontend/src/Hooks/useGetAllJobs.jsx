@@ -9,12 +9,14 @@ const useGetAllJobs = () => {
     useEffect(()=>{
         const fetchAllJobs = async ()=>{
             try { 
-                const res = await axios.get(`${JOB_API_END_POINT}/get`,{withCredentials:true});
+              console.log("hello")
+              console.log(`${JOB_API_END_POINT}/get`);
+              const res = await axios.get(`${JOB_API_END_POINT}/get`,{withCredentials:true});
                 if(res.data.success){
                   dispatch(setAllJobs(res.data.jobs));
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error.response)
             }
         }
         fetchAllJobs();

@@ -8,10 +8,16 @@ import { useNavigate } from 'react-router-dom'
 const Job = ({job}) => {
   const navigate = useNavigate();
   // const jobId = "dnkjfdfjfn";
+  const daysAgo = (mongoDbTime)=>{
+    const createdAt = new Date(mongoDbTime);
+    const currentTime = new Date();
+    const timeDifference = currentTime-createdAt;
+    return Math.floor(timeDifference/(1000*60*60*24));
+  }
   return (
     <div className='p-5 rounded-md shadow-lg bg-white border border-gray-200'>
       <div className="flex items-center justify-between">
-      <p className='text-sm text-gray-500'>2 days ago</p>
+        <p className='text-sm text-gray-500'>{daysAgo(job?.createdAt.split("T")[0]) == 0 ? "Today" : `${daysAgo(job?.createdAt.split("T")[0])} days ago`}</p>
       <Button variant = "outline" className='rounded-full' size="icon"><Bookmark/></Button>
       </div>
       <div className="flex items-center gap-2 my-2">
@@ -41,7 +47,7 @@ const Job = ({job}) => {
         </Badge>
       </div>
       <div className='flex items-center gap-4 mt-5'>
-        <Button className="cursor-pointer" onClick = {()=> navigate(`/job/description/${jobId}`)} variant="outline">Details</Button>
+        <Button className="cursor-pointer" onClick = {()=> navigate(`/job/description/${job._id}`)} variant="outline">Details</Button>
         <Button className="bg-[#7209b7]">Save for later</Button>
       </div>
     </div>
