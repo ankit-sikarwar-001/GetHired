@@ -3,7 +3,7 @@ import { JOB_API_END_POINT } from '@/utils/constant'
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-
+//we will continue
 const useGetAllJobs = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
