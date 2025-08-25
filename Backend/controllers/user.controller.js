@@ -13,10 +13,13 @@ export const register = async (req, res) => {
         .status(400)
         .json({ message: "All fields are required", success: false });
     }
-
-    const file = req.file;
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    
+    let profilePhoto = "";
+    if (req.file) {
+      const fileUri = getDataUri(req.file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+      profilePhoto = cloudResponse.secure_url;
+    }
 
     const user = await User.findOne({ email });
     if (user) {
@@ -31,9 +34,9 @@ export const register = async (req, res) => {
       phoneNumber,
       password: hashedPassword,
       role,
-      profile:{
-        profilePhoto:cloudResponse.secure_url,
-      }
+      profile: {
+        profilePhoto: profilePhoto,
+      },
     });
     return res
       .status(201)
@@ -119,53 +122,50 @@ export const logout = async (req, res) => {
     }
 
 export const updateProfile = async (req, res) => {
-  // res.send("update profile");
-    try {
-        const { fullName, email, phoneNumber, bio, skills} = req.body;
-        // cloudinary aayega idhar 
-        const file = req.file;
-        const fileUri = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-
-        let skillsArray ;
-        if(skills) skillsArray = skills.split(",");
-        console.log(req.id);
-        const userId = req.id;
-        let user = await User.findById(userId);
-        if (!user) {
-            return res
-                .status(404)
-                .json({ message: "User not found", success: false });
-        }
-        // updating user
-       
-        if(fullName) user.fullName = fullName;
-        if (email) user.email = email;
-        if (phoneNumber) user.phoneNumber = phoneNumber;
-        if (bio) user.profile.bio = bio;
-        if (skillsArray) user.profile.skills = skillsArray;
-        // resume come later here 
-        if(cloudResponse){
-          console.log("Cloudinary secure_url:", cloudResponse.secure_url);
-        user.profile.resume = cloudResponse.secure_url;  // save the file
-        user.profile.resumeOriginalName = file.originalname; // save the file name 
-        }
-        await user.save();
-
-        user = {
-            _Id: user._id,
-            fullName: user.fullName,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-            role: user.role,
-            profile : user.profile,
-        }
-
-        res
-            .status(200)
-            .json({ message: "Profile updated successfully",user, success: true });
+  try {
+    const { fullName, email, phoneNumber, bio, skills } = req.body;
+    let skillsArray;
+    if (skills) skillsArray = skills.split(",");
+    const userId = req.id;
+    let user = await User.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not found", success: false });
     }
-    catch (error) {
-        console.log(error);
+
+    // updating user
+    if (fullName) user.fullName = fullName;
+    if (email) user.email = email;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (bio) user.profile.bio = bio;
+    if (skillsArray) user.profile.skills = skillsArray;
+
+    // Only upload resume if file is provided
+    if (req.file) {
+      const fileUri = getDataUri(req.file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+      if (cloudResponse) {
+        user.profile.resume = cloudResponse.secure_url;
+        user.profile.resumeOriginalName = req.file.originalname;
+      }
     }
-}
+
+    await user.save();
+
+    user = {
+      _Id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      role: user.role,
+      profile: user.profile,
+    };
+
+    res
+      .status(200)
+      .json({ message: "Profile updated successfully", user, success: true });
+  } catch (error) {
+    console.log(error);
+  }
+};

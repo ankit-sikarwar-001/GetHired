@@ -44,6 +44,7 @@ const SignUp = () => {
     if (input.file) {
       formData.append('file', input.file);
     }
+    console.log(input);
     try {
       const res = await axios.post(`${import.meta.env.VITE_USER_END_POINT}/register`, formData, {
         headers: {
