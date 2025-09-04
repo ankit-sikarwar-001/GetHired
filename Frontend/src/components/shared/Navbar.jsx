@@ -20,7 +20,6 @@ const Navbar = () => {
     const {User} = useSelector(store=>store.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(User);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -79,13 +78,13 @@ const Navbar = () => {
                             <Popover>
                                 <PopoverTrigger className='cursor-pointer' asChild>
                                     <Avatar>
-                                            <AvatarImage src={User?.profile?.profilePhoto} alt="@Avatar" />
+                                            <AvatarImage src={User?.profile?.profilePhoto || "https://github.com/shadcn.png"} alt="@Avatar" />
                                     </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent className='w-68'>
                                     <div className='flex gap-4  space-y-2'>
                                         <Avatar>
-                                            <AvatarImage src={User?.profile?.profilePhoto} alt="@Avatar" />
+                                                <AvatarImage src={User?.profile?.profilePhoto || "https://github.com/shadcn.png"} alt="@Avatar" />
                                         </Avatar>
                                         <div>
                                             <h4 className='font-medium'>{User?.fullName}</h4>

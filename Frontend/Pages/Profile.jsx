@@ -24,7 +24,11 @@ const Profile = () => {
         <div className="flex justify-between">
           <div className='flex items-center gap-4'>
             <Avatar className="h-24 w-24">
-              <AvatarImage src={User?.profile?.profilePhoto} alt="profile" />
+              <AvatarImage
+                src={User?.profile?.profilePhoto || "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"}
+                alt={User?.fullName ? `${User.fullName}'s profile photo` : "Default profile"}
+                onError={e => { e.target.src = "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"; }}
+              />
             </Avatar>
             <div>
               <h1 className='font-medium text-xl'>{User?.fullName}</h1>
