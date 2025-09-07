@@ -17,7 +17,7 @@ import { setUser } from '@/redux/authSlice'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const {User} = useSelector(store=>store.auth);
+    const { User } = useSelector(Store => Store.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -25,10 +25,10 @@ const Navbar = () => {
         setIsOpen(!isOpen);
     }
 
-    const logoutHandler = async()=>{
+    const logoutHandler = async () => {
         try {
-            const res = await axios.get(`${USER_API_END_POINT}/logout`,{withCredentials:true})
-            if(res.data.success){
+            const res = await axios.get(`${USER_API_END_POINT}/logout`, { withCredentials: true })
+            if (res.data.success) {
                 dispatch(setUser(null));
                 navigate("/");
                 toast.success(res.data.message);
@@ -56,9 +56,21 @@ const Navbar = () => {
                     transition-all duration-300 ease-in-out
                     ${isOpen ? 'block' : 'hidden'}
                 `}>
-                    <li><Link to="/" className='block py-2 cursor-pointer  md:py-0'>Home</Link></li>
-                    <li><Link to="/jobs" className='block py-2 cursor-pointer md:py-0'>Jobs</Link></li>
-                    <li><Link to="/browse" className='block py-2 cursor-pointer md:py-0'>Browse</Link></li>
+                    {
+                        User && User.role == "Recruiter" ? (
+                            <>
+                                <li><Link to="/admin/companies" className='block py-2 cursor-pointer  md:py-0'>Companies</Link></li>
+                                <li><Link to="/admins/jobs" className='block py-2 cursor-pointer md:py-0'>Jobs</Link></li>
+                            </>
+                        ) : (
+                            <>
+                                <li><Link to="/" className='block py-2 cursor-pointer  md:py-0'>Home</Link></li>
+                                <li><Link to="/jobs" className='block py-2 cursor-pointer md:py-0'>Jobs</Link></li>
+                                <li><Link to="/browse" className='block py-2 cursor-pointer md:py-0'>Browse</Link></li>
+                            </>
+                        )
+                    }
+
 
                     {!User ? (
                         <div className='flex flex-col md:flex-row items-start md:items-center gap-4 mt-4 md:mt-0'>
@@ -78,23 +90,30 @@ const Navbar = () => {
                             <Popover>
                                 <PopoverTrigger className='cursor-pointer' asChild>
                                     <Avatar>
-                                            <AvatarImage src={User?.profile?.profilePhoto || "https://github.com/shadcn.png"} alt="@Avatar" />
+                                        <AvatarImage src={User?.profile?.profilePhoto || "https://github.com/shadcn.png"} alt="@Avatar" />
                                     </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent className='w-68'>
                                     <div className='flex gap-4  space-y-2'>
                                         <Avatar>
-                                                <AvatarImage src={User?.profile?.profilePhoto || "https://github.com/shadcn.png"} alt="@Avatar" />
+                                            <AvatarImage src={User?.profile?.profilePhoto || "https://github.com/shadcn.png"} alt="@Avatar" />
                                         </Avatar>
                                         <div>
                                             <h4 className='font-medium'>{User?.fullName}</h4>
                                             <p className='text-sm text-muted-foreground'>{User?.profile?.bio}</p>
                                         </div>
                                     </div>
-                                    <div className='flex flex-col mt-4 space-y-2'>
-                                        <Button variant='link' className="cursor-pointer">
-                                                <Link to="/profile" className='flex'> <User2 /> View Profile</Link>
-                                        </Button>
+                                    <div className='flex flex-col  space-y-2'>
+                                        {
+                                            User && User.role == "Job Seeker" && (
+                                                <>
+                                                    <Button variant='link' className="cursor-pointer">
+                                                        <Link to="/profile" className='flex'> <User2 /> View Profile</Link>
+                                                    </Button>
+                                                </>
+                                            )
+                                        }
+
                                         <Button variant='link' onClick={logoutHandler} className="bg-red-400 cursor-pointer">
                                             <LogOut /> Logout
                                         </Button>
