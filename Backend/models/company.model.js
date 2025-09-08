@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-let Company;
+
 const companySchema = new mongoose.Schema(
   {
     name: {
@@ -10,13 +10,14 @@ const companySchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    website: {
+      type: String,
+    },
     location: {
       type: String,
     },
-    website: { type: String },
     logo: {
-      type: String,
-      default: "",
+      type: String, // URL to company logo
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -24,7 +25,6 @@ const companySchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timeStamps: true }
+  { timestamps: true }
 );
-export default Company = mongoose.model("Company", companySchema);
-        
+export const Company = mongoose.model("Company", companySchema);
