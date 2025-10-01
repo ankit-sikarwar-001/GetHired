@@ -51,6 +51,10 @@ const approuter = createBrowserRouter([
     element: <CompanyCreate />,
   },
   {
+    path: "/admin/companies/:id",
+    element: <CompanySetup />
+  },
+  {
     path: '/admin/jobs',
     element: <AdminJobs />,
   },
