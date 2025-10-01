@@ -7,27 +7,28 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const AdminJobsTable = () => {
-    const { companies, searchCompanyByText } = useSelector(Store => Store.company);
-    const [filterCompany, setFilterCompany] = useState(companies);
+    // const { companies, searchCompanyByText } = useSelector(Store => Store.company);
+    const { allAdminJobs, searchJobByText } = useSelector(Store => Store.jobs);
+    const [filterJobs, setFilterJobs] = useState(allAdminJobs);
     const navigate = useNavigate();
     useEffect(() => {
-        const filteredCompany = companies.length >= 0 && companies.filter((company) => {
-            if (!searchCompanyByText) {
+        const filteredJobs = allAdminJobs.length >= 0 && allAdminJobs.filter((job) => {
+            if (!searchJobByText) {
                 return true
             };
-            return company?.name?.toLowerCase().includes(searchCompanyByText.toLowerCase());
+            return job?.title?.toLowerCase().includes(searchJobByText.toLowerCase()) || job?.company?.name.toLowerCase().includes(searchJobByText.toLowerCase());
 
         });
-        console.log(filteredCompany);
-        setFilterCompany(filteredCompany);
-    }, [companies, searchCompanyByText])
+        console.log(filteredJobs);
+        setFilterJobs(filteredJobs);
+    }, [allAdminJobs, searchJobByText])
     return (
         <div>
             <Table>
                 <TableCaption>A list of your recent posted jobs</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Companies</TableHead>
+                        <TableHead>Company Name</TableHead>
                         <TableHead>Role</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead className="text-right">Action</TableHead>
@@ -35,16 +36,17 @@ const AdminJobsTable = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        filterCompany?.map((company) => (
-                            <tr key={company._id}>
-                                <TableCell>{company.name}</TableCell>
-                                <TableCell>{company.createdAt.split("T")[0]}</TableCell>
+                        filterJobs?.map((job) => (
+                            <tr key={job._id}>
+                                <TableCell>{job?.company?.name}</TableCell>
+                                <TableCell>{job?.title}</TableCell>
+                                <TableCell>{job.createdAt.split("T")[0]}</TableCell>
                                 <TableCell className="text-right cursor-pointer">
                                     <Popover>
                                         <PopoverTrigger><MoreHorizontal className='cursor-pointer' /></PopoverTrigger>
                                         <PopoverContent className="w-32 ">
                                             {/* onClick={() => navigate(`/admin/companies/${company._id}`)} */}
-                                            <div onClick={() => navigate(`/admin/companies/${company._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
+                                            <div onClick={() => navigate(`/admin/companies/${job._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
                                                 <Edit2 className='w-4' />
                                                 <span>Edit</span>
                                             </div>
