@@ -60,7 +60,7 @@ const Navbar = () => {
                         User && User.role == "Recruiter" ? (
                             <>
                                 <li><Link to="/admin/companies" className='block py-2 cursor-pointer  md:py-0'>Companies</Link></li>
-                                <li><Link to="/admins/jobs" className='block py-2 cursor-pointer md:py-0'>Jobs</Link></li>
+                                <li><Link to="/admin/jobs" className='block py-2 cursor-pointer md:py-0'>Jobs</Link></li>
                             </>
                         ) : (
                             <>

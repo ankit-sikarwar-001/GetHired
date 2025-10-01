@@ -6,7 +6,7 @@ import { Edit2, MoreHorizontal } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-const CompaniesTable = () => {
+const AdminJobsTable = () => {
     const { companies, searchCompanyByText } = useSelector(Store => Store.company);
     const [filterCompany, setFilterCompany] = useState(companies);
     const navigate = useNavigate();
@@ -24,11 +24,11 @@ const CompaniesTable = () => {
     return (
         <div>
             <Table>
-                <TableCaption>A list of your recent registered companies</TableCaption>
+                <TableCaption>A list of your recent posted jobs</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Logo</TableHead>
-                        <TableHead>Name</TableHead>
+                        <TableHead>Companies</TableHead>
+                        <TableHead>Role</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead className="text-right">Action</TableHead>
                     </TableRow>
@@ -37,11 +37,6 @@ const CompaniesTable = () => {
                     {
                         filterCompany?.map((company) => (
                             <tr key={company._id}>
-                                <TableCell>
-                                    <Avatar>
-                                        <AvatarImage src={company.logo || "https://github.com/shadcn.png"} />
-                                    </Avatar>
-                                </TableCell>
                                 <TableCell>{company.name}</TableCell>
                                 <TableCell>{company.createdAt.split("T")[0]}</TableCell>
                                 <TableCell className="text-right cursor-pointer">
@@ -67,4 +62,4 @@ const CompaniesTable = () => {
     )
 }
 
-export default CompaniesTable
+export default AdminJobsTable;

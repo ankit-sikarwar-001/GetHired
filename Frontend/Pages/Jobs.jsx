@@ -1,7 +1,7 @@
 import FilterCard from '@/components/JobsComponents/FilterCard'
 import Job from '@/components/JobsComponents/Job'
 import Navbar from '@/components/shared/Navbar'
-import useGetAllJobs from '@/Hooks/useGetAllJobs'
+import useGetAllJobs from '@/Hooks/useGetAllCompanies'
 import Store from '@/redux/Store'
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -25,7 +25,7 @@ const Jobs = () => {
                                     {
                                         allJobs.map((job) => (
                                             <div key={job._id}>
-                                                <Job key={job._id} job={job}/>
+                                                <Job key={job._id} job={job} />
                                             </div>
                                         ))
                                     }
