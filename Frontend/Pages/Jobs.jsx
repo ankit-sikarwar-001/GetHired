@@ -1,7 +1,7 @@
 import FilterCard from '@/components/JobsComponents/FilterCard'
 import Job from '@/components/JobsComponents/Job'
 import Navbar from '@/components/shared/Navbar'
-import useGetAllJobs from '@/Hooks/useGetAllCompanies'
+import useGetAllJobs from '@/Hooks/useGetAllJobs'
 import Store from '@/redux/Store'
 import React from 'react'
 import { useSelector } from 'react-redux'

@@ -2,7 +2,7 @@ import Navbar from '@/components/shared/Navbar'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import {  Contact, Mail, Pen } from 'lucide-react'
+import { Contact, Mail, Pen } from 'lucide-react'
 
 import React, { useState } from 'react'
 import { Label } from '@/components/ui/label'
@@ -10,11 +10,13 @@ import AppliedJobs from '@/components/ClientProfileComponent/AppliedJobs'
 import UpdateProfileDialogue from '@/components/ClientProfileComponent/UpdateProfileDialogue'
 import { useSelector } from 'react-redux'
 import Store from '@/redux/Store'
+import useGetAppliedJobs from '@/Hooks/useGetAppliedJobs'
 
 
 const Profile = () => {
-  const [open,setOpen] = useState(false);
-  const { User } = useSelector(Store=> Store.auth);
+  useGetAppliedJobs();
+  const [open, setOpen] = useState(false);
+  const { User } = useSelector(Store => Store.auth);
   // const skills = User?.profile?.skills?.map(skill => skill);
   const isResume = true;
   return (
@@ -35,9 +37,9 @@ const Profile = () => {
               <p>{User?.profile?.bio}</p>
             </div>
           </div>
-          <Button 
-          onClick = {()=>setOpen(true)}
-          className="text-right" variant="outline"><Pen /></Button>
+          <Button
+            onClick={() => setOpen(true)}
+            className="text-right" variant="outline"><Pen /></Button>
         </div>
         <div className=" my-5">
           <div className='flex items-center gap-3 my-2'>
@@ -54,11 +56,11 @@ const Profile = () => {
         <div className="my-5">
           <h1>Skills</h1>
           <div className="flex items-center gap-1">
-          {
-              User?.profile?.skills.length != 0 ? User?.profile?.skills.map((skill, index)=><Badge key={index}>{skill}</Badge>):<span>
-              NA
-            </span>
-          }
+            {
+              User?.profile?.skills.length != 0 ? User?.profile?.skills.map((skill, index) => <Badge key={index}>{skill}</Badge>) : <span>
+                NA
+              </span>
+            }
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label className="text-md font-bold">Resume</Label>
@@ -69,12 +71,12 @@ const Profile = () => {
 
         </div>
       </div>
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl">
-            <h1 className='font-bold text-lg'>Applied Jobs</h1>
-            {/* Application table */}
-            <AppliedJobs/>
-          </div>
-          <UpdateProfileDialogue open = {open} setOpen = {setOpen}/>
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
+        <h1 className='font-bold text-lg'>Applied Jobs</h1>
+        {/* Application table */}
+        <AppliedJobs />
+      </div>
+      <UpdateProfileDialogue open={open} setOpen={setOpen} />
     </div>
   )
 }

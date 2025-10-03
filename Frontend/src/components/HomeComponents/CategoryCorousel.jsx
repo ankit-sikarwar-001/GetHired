@@ -7,6 +7,9 @@ import {
     CarouselPrevious
 } from '../ui/carousel'
 import { Button } from '../ui/button'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setSearchedQuery } from '@/redux/jobSlice'
 
 const CategoryCarousel = () => {
     const category = [
@@ -18,6 +21,14 @@ const CategoryCarousel = () => {
         "Accountant",
         "Project Manager"
     ]
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const searchJobHandler = (query) => {
+        dispatch(setSearchedQuery(query));
+        navigate("/browse");
+
+    }
 
     return (
         <div className="w-full px-4 sm:px-6">
@@ -25,12 +36,13 @@ const CategoryCarousel = () => {
                 <CarouselContent>
                     {category.map((cat, index) => (
                         <CarouselItem
+                            onClick={() => searchJobHandler(cat)}
                             key={index}
-                            className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 px-2"
+                            className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 px-2 cursor-pointer"
                         >
                             <Button
                                 variant="outline"
-                                className="w-full rounded-full text-sm py-3"
+                                className="w-full rounded-full text-sm py-3 cursor-pointer"
                             >
                                 {cat}
                             </Button>
@@ -38,7 +50,7 @@ const CategoryCarousel = () => {
                     ))}
                 </CarouselContent>
                 <CarouselPrevious />
-                <CarouselNext className={"hidden md:flex items-center justify-center"}/>
+                <CarouselNext className={"hidden md:flex items-center justify-center"} />
             </Carousel>
         </div>
     )
