@@ -13,6 +13,7 @@ import { toast } from 'sonner'
 import axios from 'axios'
 import { USER_API_END_POINT } from '@/utils/constant'
 import { setUser } from '@/redux/authSlice'
+import { setSearchedQuery } from '@/redux/jobSlice'
 // import store from "@/redux/Store"
 
 const Navbar = () => {
@@ -66,7 +67,7 @@ const Navbar = () => {
                             <>
                                 <li><Link to="/" className='block py-2 cursor-pointer  md:py-0'>Home</Link></li>
                                 <li><Link to="/jobs" className='block py-2 cursor-pointer md:py-0'>Jobs</Link></li>
-                                <li><Link to="/browse" className='block py-2 cursor-pointer md:py-0'>Browse</Link></li>
+                                <li onClick={() => dispatch(setSearchedQuery(""))} ><Link to="/browse" className='block py-2 cursor-pointer md:py-0'>Browse</Link></li>
                             </>
                         )
                     }

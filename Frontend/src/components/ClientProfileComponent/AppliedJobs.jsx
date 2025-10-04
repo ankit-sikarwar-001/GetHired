@@ -2,9 +2,11 @@ import React from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { useSelector } from 'react-redux'
 import Store from '@/redux/Store'
+import { Badge } from '../ui/badge'
 
 const AppliedJobs = () => {
   const { allAppliedJobs } = useSelector(Store => Store.jobs);
+  console.log(allAppliedJobs);
   return (
     <div>
       <Table>
@@ -22,7 +24,7 @@ const AppliedJobs = () => {
                 <TableCell>{item.createdAt.split("T")[0]}</TableCell>
                 <TableCell>{item?.job?.title}</TableCell>
                 <TableCell>{item?.job?.company?.name}</TableCell>
-                <TableCell className="text-right">{item?.status}</TableCell>
+                <TableCell className="text-right"><Badge className={item?.status === "rejected" ? "bg-red-500" : item.status === "pending" ? "bg-gray-500" : "bg-green-500"}>{item?.status.toUpperCase()}</Badge></TableCell>
               </TableRow>
             ))
           }
