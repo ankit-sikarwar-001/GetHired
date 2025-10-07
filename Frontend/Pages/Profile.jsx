@@ -27,7 +27,7 @@ const Profile = () => {
           <div className='flex items-center gap-4'>
             <Avatar className="h-24 w-24">
               <AvatarImage
-                src={User?.profile?.profilePhoto || "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"}
+                src={User?.profile?.profilePhoto || "https://github.com/shadcn.png"}
                 alt={User?.fullName ? `${User.fullName}'s profile photo` : "Default profile"}
                 onError={e => { e.target.src = "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"; }}
               />

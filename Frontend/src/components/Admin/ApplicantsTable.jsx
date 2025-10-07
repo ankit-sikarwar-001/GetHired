@@ -12,10 +12,10 @@ const shortlistingStatus = ["Accepted", "Rejected"];
 
 const ApplicantsTable = () => {
     const { applicants } = useSelector(Store => Store.application);
-    console.log(applicants.applications)
+    // console.log(applicants.applications)
 
     const statusHandler = async (status, id) => {
-        console.log('called', id);
+        // console.log('called', id);
         try {
             axios.defaults.withCredentials = true;
             const res = await axios.post(`${APPLICATION_API_END_POINT}/status/${id}/update`, { status });

@@ -6,7 +6,6 @@ const LatestJobCards = ({ job }) => {
     const navigate = useNavigate();
     return (
         <div onClick={() => {
-            console.log('Navigating to:', job._id);
             navigate(`/job/description/${job._id}`);
         }} className="p-4 sm:p-5 rounded-md shadow-xl bg-white border border-gray-200 hover:shadow-2xl transition-all cursor-pointer duration-300 w-full max-w-md mx-auto">
             {/* Company Info */}

@@ -6,7 +6,7 @@ import { Badge } from '../ui/badge'
 
 const AppliedJobs = () => {
   const { allAppliedJobs } = useSelector(Store => Store.jobs);
-  console.log(allAppliedJobs);
+  // console.log(allAppliedJobs);
   return (
     <div>
       <Table>

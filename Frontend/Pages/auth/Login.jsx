@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Label } from '../../src/components/ui/label'
 import { Input } from '../../src/components/ui/input'
 import { RadioGroup } from '../../src/components/ui/radio-group'
@@ -8,8 +8,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLoading,setUser } from '@/redux/authSlice'
+import { setLoading, setUser } from '@/redux/authSlice'
 import { Loader2 } from 'lucide-react'
+import Store from '@/redux/Store'
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -17,7 +18,7 @@ const Login = () => {
     password: "",
     role: "",
   })
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, User } = useSelector((Store) => Store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -48,6 +49,11 @@ const Login = () => {
       dispatch(setLoading(false));
     }
   }
+  useEffect(() => {
+    if (User) {
+      navigate("/");
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
