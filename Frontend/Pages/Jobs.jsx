@@ -5,6 +5,7 @@ import useGetAllJobs from '@/Hooks/useGetAllJobs'
 import Store from '@/redux/Store'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { motion } from 'framer-motion'
 
 // const randomJobs = [1, 2, 3,4,5,6,7,8]
 const Jobs = () => {
@@ -39,9 +40,16 @@ const Jobs = () => {
                                 <div className='grid grid-cols-1 sm:grid-cols md:grid-cols-2 lg:grid-cols-3 gap-4'>
                                     {
                                         filterJobs.map((job) => (
-                                            <div key={job._id}>
+                                            <motion.div
+                                                key={job._id}
+                                                layout
+                                                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, y: -30, scale: 0.9 }}
+                                                transition={{ duration: 0.4, ease: "easeInOut" }}
+                                            >
                                                 <Job key={job._id} job={job} />
-                                            </div>
+                                            </motion.div>
                                         ))
                                     }
                                 </div>
