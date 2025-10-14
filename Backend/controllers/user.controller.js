@@ -1,19 +1,19 @@
 import { User } from "../models/user.model.js";
-import bcrypt from "bcryptJs";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
   try {
-    const {fullName, email, phoneNumber, password, role} = req.body;
+    const { fullName, email, phoneNumber, password, role } = req.body;
     console.log("Register request body:", req.body);
     if (!fullName || !email || !phoneNumber || !password || !role) {
       return res
         .status(400)
         .json({ message: "All fields are required", success: false });
     }
-    
+
     let profilePhoto = "";
     if (req.file) {
       const fileUri = getDataUri(req.file);
@@ -47,10 +47,10 @@ export const register = async (req, res) => {
 };
 export const login = async (req, res) => {
   try {
-    const { email, password, role} = req.body;
+    const { email, password, role } = req.body;
     console.log("Login request body:", req.body);
-    
-    if ( !email || !password || !role) {
+
+    if (!email || !password || !role) {
       return res
         .status(400)
         .json({ message: "All fields are required", success: false });
@@ -76,19 +76,20 @@ export const login = async (req, res) => {
     }
     // create token
     const tokenData = {
-      userId: user._id,}
+      userId: user._id,
+    };
     const token = await jwt.sign(tokenData, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 
     user = {
-        _Id: user._id,
-        fullName: user.fullName,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
-        role: user.role,
-        profile : user.profile,
-    }
+      _Id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      role: user.role,
+      profile: user.profile,
+    };
 
     return res
       .status(200)
@@ -96,30 +97,30 @@ export const login = async (req, res) => {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
         sameSite: "strict",
-      }).json({
+      })
+      .json({
         message: "Welcome back " + user.fullName,
         user,
         success: true,
       });
-      
   } catch (error) {
     console.log(error);
   }
 };
 
 export const logout = async (req, res) => {
-    try {
-        res
-        .clearCookie("token", {
-            httpOnly: true,
-            sameSite: "strict",
-        })
-        .status(200)
-        .json({ message: "Logout successfully", success: true });
-    } catch (error) {
-        console.log(error);
-    }
-    }
+  try {
+    res
+      .clearCookie("token", {
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .status(200)
+      .json({ message: "Logout successfully", success: true });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const updateProfile = async (req, res) => {
   try {

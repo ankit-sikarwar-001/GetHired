@@ -19,7 +19,7 @@ const AdminJobsTable = () => {
             return job?.title?.toLowerCase().includes(searchJobByText.toLowerCase()) || job?.company?.name.toLowerCase().includes(searchJobByText.toLowerCase());
 
         });
-        console.log(filteredJobs);
+        // console.log(filteredJobs);
         setFilterJobs(filteredJobs);
     }, [allAdminJobs, searchJobByText])
     return (
