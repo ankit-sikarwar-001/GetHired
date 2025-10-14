@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button.jsx'
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import {
     Popover,
