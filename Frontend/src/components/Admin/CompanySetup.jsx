@@ -9,7 +9,7 @@ import { COMPANY_API_END_POINT } from '@/utils/constant'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { useSelector } from 'react-redux'
-import useGetCompanyById from '@/hooks/useGetCompanyById.jsx'
+import useGetCompanyById from '@/Hooks/useGetCompanyById.jsx'
 
 const CompanySetup = () => {
     const params = useParams();
