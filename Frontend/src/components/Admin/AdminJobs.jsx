@@ -5,8 +5,8 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useDispatch } from 'react-redux';
 import AdminJobsTable from './AdminJobsTable';
-import useGetAllAdminJobs from '@/Hooks/useGetAllAdminJobs';
-import { setSearchJobByText } from '@/redux/jobSlice';
+import useGetAllAdminJobs from '@/Hooks/useGetAllAdminJobs.jsx';
+import { setSearchJobByText } from '@/redux/jobSlice.js';
 
 const AdminJobs = () => {
     useGetAllAdminJobs();

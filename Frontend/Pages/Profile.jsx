@@ -10,7 +10,7 @@ import AppliedJobs from '@/components/ClientProfileComponent/AppliedJobs'
 import UpdateProfileDialogue from '@/components/ClientProfileComponent/UpdateProfileDialogue'
 import { useSelector } from 'react-redux'
 import Store from '@/redux/Store'
-import useGetAppliedJobs from '@/Hooks/useGetAppliedJobs'
+import useGetAppliedJobs from '@/Hooks/useGetAppliedJobs.jsx'
 
 
 const Profile = () => {
