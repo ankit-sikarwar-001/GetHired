@@ -15,11 +15,23 @@ app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: "https://get-hired-brown.vercel.app/",
-  credentials: true,
-};
-app.use(cors(corsOptions));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://get-hired-brown.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.get("/", (req, res) => {
   res.send("API is running");
 });
