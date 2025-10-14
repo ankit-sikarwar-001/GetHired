@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '@/components/shared/Navbar';
 import Job from '@/components/JobsComponents/Job';
 import { useSelector } from 'react-redux';
-import useGetAllJobs from '@/hooks/useGetAllJobs';
+import useGetAllJobs from '@/hooks/useGetAllJobs.jsx';
 import Store from '@/redux/Store';
 
 const Browse = () => {
