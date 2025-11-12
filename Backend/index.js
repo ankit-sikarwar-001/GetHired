@@ -17,7 +17,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://get-hired-seven.vercel.app",
+  "https://get-hired-brown.vercel.app",
 ];
 
 app.use(
