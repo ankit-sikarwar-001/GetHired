@@ -9,9 +9,12 @@ import {
     TableRow
 } from '../ui/table';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Edit2, Eye, MoreHorizontal } from 'lucide-react';
+import { Edit2, Eye, MoreHorizontal, Trash2 } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { JOB_API_END_POINT } from '@/utils/constant';
 
 const AdminJobsTable = () => {
     const { allAdminJobs, searchJobByText } = useSelector((store) => store.jobs);
@@ -36,6 +39,21 @@ const AdminJobsTable = () => {
             return new Date(dateString).toISOString().split('T')[0];
         } catch {
             return 'N/A';
+        }
+    };
+    const deleteJobHandler = async (jobId) => {
+        try {
+            const res = await axios.delete(
+                `${JOB_API_END_POINT}/delete/${jobId}`,
+                { withCredentials: true }
+            );
+
+            if (res.data.success) {
+                toast.success(res.data.message);
+            }
+
+        } catch (error) {
+            toast.error(error.response.data.message);
         }
     };
 
@@ -82,6 +100,14 @@ const AdminJobsTable = () => {
                                             >
                                                 <Eye className="w-4" />
                                                 <span>Applicants</span>
+                                            </div>
+                                            {/* Delete the wrong job */}
+                                            <div
+                                                onClick={() => deleteJobHandler(job._id)}
+                                                className="flex items-center gap-2 mt-2 w-fit cursor-pointer hover:text-red-600"
+                                            >
+                                                <Trash2 className="w-4" />
+                                                <span>Delete</span>
                                             </div>
                                         </PopoverContent>
                                     </Popover>

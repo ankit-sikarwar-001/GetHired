@@ -11,11 +11,19 @@
 //   "https://get-hired-backend.vercel.app/api/v1/applications";
 // export const COMPANY_API_END_POINT =
 //   "https://get-hired-backend.vercel.app/api/v1/company";
-export const USER_API_END_POINT =
-  "https://gethired-1467.onrender.com/api/v1/user";
-export const JOB_API_END_POINT =
-  "https://gethired-1467.onrender.com/api/v1/jobs";
+//33333333333333333333333333333333333333333333333333333333333333333333
+// export const USER_API_END_POINT =
+//   "https://gethired-1467.onrender.com/api/v1/user";
+// export const JOB_API_END_POINT =
+//   "https://gethired-1467.onrender.com/api/v1/jobs";
+// export const APPLICATION_API_END_POINT =
+//   "https://gethired-1467.onrender.com/api/v1/applications";
+// export const COMPANY_API_END_POINT =
+//   "https://gethired-1467.onrender.com/api/v1/company";
+
+//####################loacl###################################################
+export const USER_API_END_POINT = "http://localhost:8000/api/v1/user";
+export const JOB_API_END_POINT = "http://localhost:8000/api/v1/jobs";
 export const APPLICATION_API_END_POINT =
-  "https://gethired-1467.onrender.com/api/v1/applications";
-export const COMPANY_API_END_POINT =
-  "https://gethired-1467.onrender.com/api/v1/company";
+  "http://localhost:8000/api/v1/applications";
+export const COMPANY_API_END_POINT = "http://localhost:8000/api/v1/company";
