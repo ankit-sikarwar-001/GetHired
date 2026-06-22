@@ -7,6 +7,7 @@ import userRoutes from "./routes/user.route.js";
 dotenv.config();
 import companyRoutes from "./routes/company.route.js";
 import jobRoutes from "./routes/job.route.js";
+import atsRoute from "./routes/ats.route.js";
 import applicationRoutes from "./routes/application.route.js";
 const app = express();
 
@@ -30,12 +31,13 @@ app.use(
       }
     },
     credentials: true,
-  })
+  }),
 );
 app.get("/", (req, res) => {
   res.send("API is running");
 });
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/ats", atsRoute);
 app.use("/api/v1/company", companyRoutes);
 app.use("/api/v1/jobs", jobRoutes);
 app.use("/api/v1/applications", applicationRoutes);
